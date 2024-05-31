@@ -1,0 +1,168 @@
+#header-section {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Adjust the height as needed */
+    overflow: hidden;
+}
+
+.cover {
+    background: url('../Assets/Images/homepage.avif') no-repeat center center; /* Adjust the path to your image */
+    background-size: cover;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center; /* Center text horizontally */
+}
+
+.container {
+    z-index: 1;
+    position: relative;
+    /* Center the container vertically */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.signup-button {
+    position: absolute;
+    bottom: 20px; /* Adjust the distance from the bottom as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    background-color: #fa0000; /* Change to your desired color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    text-decoration: none; /* Remove underline for link */
+}
+
+.signup-button:hover {
+    background-color: #e42929; /* Change to your desired hover color */
+}
+
+.button-container {
+    position: absolute;
+    top: 20px; /* Adjust the distance from the top as needed */
+    right: 20px; /* Adjust the distance from the right as needed */
+    display: flex;
+    gap: 10px; /* Space between buttons */
+}
+
+.button {
+    padding: 10px 20px;
+    background-color: None; /* Change to your desired color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    text-decoration: none; /* Remove underline for link */
+}
+
+button:hover {
+    color: rgb(188, 193, 197);
+}
+
+
+.g-color-white {
+    color: white;
+}
+
+.g-font-weight-700 {
+    font-weight: 700;
+}
+
+.g-font-size-25--sx, .g-font-size-30--md--down, .g-font-size-45--lg {
+    font-size: 25px;
+}
+
+@media (min-width: 768px) {
+    .g-font-size-30--md--down {
+        font-size: 30px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .g-font-size-45--lg {
+        font-size: 45px;
+    }
+}
+
+.g-line-height-1 {
+    line-height: 1;
+}
+
+.g-py-10 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.g-mb-20 {
+    margin-bottom: 20px;
+}
+
+.d-inline-block {
+    display: inline-block;
+}
+
+.g-width-50x {
+    width: 50px;
+}
+
+.g-height-2 {
+    height: 2px;
+}
+
+.g-bg-secondary {
+    background-color: #333; /* Change this to your preferred color */
+}
+
+.mb-2 {
+    margin-bottom: 2rem;
+}
+
+.g-font-size-22 {
+    font-size: 22px;
+}
+
+.g-mb-5 {
+    margin-bottom: 5px;
+}
+
+.g-mb-40 {
+    margin-bottom: 40px;
+}
+
+/* Animation classes */
+.fadeInUp {
+    animation-name: fadeInUp;
+    animation-fill-mode: both;
+    animation-duration: 1500ms;
+}
+
+@keyframes fadeInUp {
+    from {
+        transform: translate3d(0, 40px, 0);
+        opacity: 0;
+    }
+    to {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+}
+
+/* Utility classes */
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+.text-center {
+    text-align: center;
+}

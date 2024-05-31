@@ -1,0 +1,51 @@
+/* src/components/Styles/earn.css */
+.earn-page {
+    margin-left: 250px; /* Adjust this value based on your aside navbar width */
+    padding: 20px;
+}
+
+.earn-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.earn-item {
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.earn-item p {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.earn-item span {
+    font-size: 16px;
+    color: #555;
+}
+
+@media (max-width: 768px) {
+    .earn-page {
+        margin-left: 0;
+    }
+
+    .earn-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .earn-item {
+        width: 90%;
+        margin-bottom: 20px;
+    }
+}
