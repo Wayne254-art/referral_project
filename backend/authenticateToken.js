@@ -4,9 +4,12 @@ require('dotenv').config();
 
 const secret = process.env.JWT_SECRET || 'jE8rwgfYpi';
 
-const authenticateToken = (req, res, next) => {
+exports.authenticateToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
+
+    // console.log(authHeader)
+    // console.log(token)
 
     if (!token) {
         return res.status(401).json({ message: 'Access token missing or malformed' });
@@ -21,4 +24,19 @@ const authenticateToken = (req, res, next) => {
     });
 };
 
-module.exports = { authenticateToken };
+
+// Admin auth
+exports.isAdmin = (...roles) => {
+    return (req, res, next) => {
+      if (!roles.includes(req.user.role)) {
+        return res
+          .status(500)
+          .json({
+            message: `Operation not permitted to ${req.user.role} ..Access denied`,
+          });
+      }
+      next();
+    };
+  };
+
+

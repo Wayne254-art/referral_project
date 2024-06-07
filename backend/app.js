@@ -3,6 +3,7 @@ const cors = require('cors');
 const cookieParser = require("cookie-parser")
 const router = require('./Routes/routes'); // Assuming routes.js is in the same directory
 
+
 const app = express();
 
 // Middleware
@@ -14,7 +15,7 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/api', router);
+app.use('/', router);
 app.use('/uploads', express.static('uploads'));
 
 
@@ -22,11 +23,15 @@ const mpesaRoutes = require('./Routes/mpesaRoutes'); // Adjust the path as neces
 const authRoutes = require('./Routes/paymentRoutes');
 const userRoutes = require('./Routes/userRoutes');
 const paymentstatusRoute = require('./Routes/paymentstatusRoute');
+const adminRoutes = require('./controllers/adminController');
+const mailRoutes = require('./Routes/mailRoutes');
 
 app.use(authRoutes);
 app.use(mpesaRoutes);
 app.use(userRoutes);
 app.use(paymentstatusRoute);
+app.use('/api/admin', adminRoutes);
+app.use('/api/mails', mailRoutes);
 
 // Start the server
 const port = process.env.PORT || 8081;

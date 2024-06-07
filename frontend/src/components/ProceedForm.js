@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './Styles/proceed-form.css'
 import { serverApi } from '../config/serverAPI';
 
 const ProceedForm = () => {
@@ -23,7 +24,7 @@ const ProceedForm = () => {
                     return;
                 }
 
-                const response = await axios.get(`${serverApi}/payment/status`,{withCredentials: true}, {
+                const response = await axios.get(`${serverApi}/payment/status`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
 
@@ -46,6 +47,8 @@ const ProceedForm = () => {
         fetchPaymentDetails();
     }, [navigate]);
 
+    // console.log(status)
+    
     const handleSubmit = () => {
         if (contact && amount > 0 && status && transactionId) {
             navigate('/dashboard');
@@ -55,44 +58,55 @@ const ProceedForm = () => {
     };
 
     if (loading) {
-        return <div>Loading...</div>;
+        return (
+            <div className="loader-container">
+                <div className="loader"></div>
+            </div>
+        );
     }
 
     return (
+        <div className="cover g-bg-img-hero cover g-flex-centered g-pos-rel g-py-100" id="cover-picture-GRC004-0" style={{height: '100vh'}}>
         <div className="proceed-form-container">
-            <h2>Proceed with Payment</h2>
             <form>
-                <label htmlFor="contact">Contact:</label>
+                <h4 style={{ display: 'flex', justifyContent: 'center' }}>Confirm Your Payment Status to Continue</h4>
+                <label htmlFor="contact"/>
                 <input
                     type="text"
                     id="contact"
+                    placeholder='contact'
                     value={contact}
                     readOnly
                 />
-                <label htmlFor="amount">Amount:</label>
+                <label htmlFor="amount"/>
                 <input
                     type="number"
                     id="amount"
+                    placeholder='amount'
                     value={amount}
                     readOnly
                 />
-                <label htmlFor="status">Status:</label>
+                <label htmlFor="status"/>
                 <input
                     type="text"
                     id="status"
+                    placeholder='status'
                     value={status}
                     readOnly
                 />
-                <label htmlFor="transactionId">Transaction ID:</label>
+                <label htmlFor="transactionId"/>
                 <input
                     type="text"
                     id="transactionId"
+                    placeholder='transaction_id'
                     value={transactionId}
                     readOnly
                 />
                 <button type="button" onClick={handleSubmit}>Continue</button>
+                 <a href="/payment" className="signup-link">Make Payment</a>
             </form>
             <ToastContainer />
+        </div>
         </div>
     );
 };

@@ -10,6 +10,11 @@ import Share from './components/Share';
 import Earn from './components/Earn';
 import Payment from './components/Payment'
 import ProceedForm from './components/ProceedForm';
+import Transaction from './components/Transaction';
+import Contact from './components/Contact';
+import Popup from './components/Popup';
+import AdminDashboard from './components/AdminDashboard';
+import Mail from './components/Mail';
 
 const App = () => {
     const [user, setUser] = useState(null);
@@ -48,9 +53,14 @@ const App = () => {
                 />
                 <Route path="/" element={<Home />} />
                 <Route path="/share" element={<Share user={user} />} />
-                <Route path="/earn" element={<Earn />} />
+                <Route path="/earn/:id" element={<Earn />} />
                 <Route path="/payment" element={<Payment />} />
                 <Route path="/proceedform" element={<ProceedForm />} />
+                <Route path="/transaction" element={<Transaction/>} />
+                <Route path="/contact" element={<Contact/>} />
+                <Route path="/popup" element={<Popup/>} />
+                <Route path="/admindashboard" element={<AdminDashboard/>} />
+                <Route path="/mail" element={<Mail/>} />
             </Routes>
         </Router>
     );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './Styles/share.css';
@@ -6,17 +6,48 @@ import AsideNavbar from './UI/AsideNavBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faTwitter, faLinkedin, faWhatsapp, faTelegram, faFacebookMessenger } from '@fortawesome/free-brands-svg-icons';
 import QRCode from 'qrcode.react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { serverApi } from '../config/serverAPI';
 
 const Share = ({ user }) => {
+    const [, setTotalDeposits] = useState(0);
+    const navigate = useNavigate();
 
-    if (!user) {
-        toast.error('User data not available. Please log in.');
-        return (
-            <div>
-                <ToastContainer />
-            </div>
-        );
-    }
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    navigate('/login');
+                    return;
+                }
+
+                const headers = { Authorization: `Bearer ${token}` };
+
+                // Fetch user details
+                //const userResponse = await axios.get(`${serverApi}/user`, { headers });
+                // Assuming setUser is needed to set the user state, but if not used, can be removed
+                // setUser(userResponse.data); 
+
+                // Fetch total deposits
+                const depositsResponse = await axios.get(`${serverApi}/deposits/total`, { headers });
+                const total = depositsResponse.data.totalDeposits;
+                setTotalDeposits(total);
+
+                if (total <= 499) {
+                    toast.error('Please make payments first');
+                    navigate('/payment');
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                toast.error('Error fetching data.');
+                navigate('/login');
+            }
+        };
+
+        fetchData();
+    }, [navigate]);
 
     const referralLink = `https://vauxrefers.com/signup?ref=${user.username}&referral=${user.id}`;
 
@@ -37,7 +68,7 @@ const Share = ({ user }) => {
                     <ToastContainer />
                 </div>
                 <div className="referral-share-container">
-                    <h3>Earn Extra Cash Now!</h3>
+                    <h1>Earn Extra Cash Now!</h1>
                     <p>Share on social media to earn more money:</p>
                     <div className="social-share">
                         <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(referralLink)}`} target="_blank" rel="noopener noreferrer">

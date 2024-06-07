@@ -1,1 +1,16 @@
 
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    
+  font-family: "Poppins", sans-serif;
+}
+
+h1{
+    font-family: "Poetsen One", sans-serif;
+}
+
+h2{
+    font-family: "JetBrains Mono", monospace;
+}

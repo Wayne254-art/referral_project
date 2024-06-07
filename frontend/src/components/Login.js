@@ -1,5 +1,5 @@
 // src/components/Login.js
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
@@ -10,6 +10,18 @@ const Login = () => {
     const [identifier, setIdentifier] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+
+useEffect(() => {
+
+    const token = localStorage.getItem('token');
+                if (token) {
+                    navigate('/payment');
+                    return;
+                } else{
+                    navigate('/login')
+                }
+}, [navigate])
+
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -34,7 +46,7 @@ const Login = () => {
     return (
         <div className="cover g-bg-img-hero cover g-flex-centered g-pos-rel g-py-100" id="cover-picture-GRC004-0">
         <div className="signup-container">
-            <form className="signup-form" onSubmit={handleLogin} style={{ animationDuration: '1500ms', color: '#00d134' }}>
+            <form className="signup-form" onSubmit={handleLogin} style={{color: '#00d134'}}> 
                 <h1 style={{ display: 'flex', justifyContent: 'center' }}>Welcome Back!</h1>
                 <h4 style={{ display: 'flex', justifyContent: 'center' }}>Login with your details to continue</h4>
                 <input

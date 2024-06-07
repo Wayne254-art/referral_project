@@ -49,3 +49,19 @@
     margin-top: 20px;
     font-size: 16px;
 }
+
+/* src/styles/animations.css */
+@keyframes slideInFromBottom {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.payment-container {
+    animation: slideInFromBottom 1.5s ease-out;
+}

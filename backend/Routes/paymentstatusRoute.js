@@ -8,11 +8,13 @@ const router = express.Router();
 
 // Backend endpoint to check payment status and return contact and amount
 router.get('/api/payment/status', authenticateToken, (req, res) => {
-    const userId = req.user.userId; // Corrected to extract userId from req.user
+    const userId = req.user.user_id; // Corrected to extract userId from req.user
 
-    db.query('SELECT amount, status, transaction_id, contact FROM users WHERE id = ?', [userId], (err, results) => {
+    // console.log(userId)
+
+    db.query('SELECT amount, status, transaction_id, contact FROM payments WHERE user_id = ?', [userId], (err, results) => {
         if (err) {
-            console.error('Error verifying payment status:', err);
+            console.error('Error verifying payment status:', err.message);
             return res.status(500).json({ success: false, message: 'Server error' });
         }
 

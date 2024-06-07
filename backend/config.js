@@ -10,8 +10,12 @@ const db = mysql.createConnection({
 });
 
 db.connect((err) => {
-    if (err) throw err;
-    console.log('Connected to database');
+    if (err){
+
+        console.log('Error  not connected to database', err.message);
+    }else{
+        console.log('connecteed to db')
+    }
 });
 
 module.exports = db;

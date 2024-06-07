@@ -42,3 +42,19 @@
 .signup-form button:hover {
     background-color: #0056b3;
 }
+
+/* src/styles/animations.css */
+@keyframes slideInFromBottom {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.signup-form {
+    animation: slideInFromBottom 1.5s ease-out;
+}

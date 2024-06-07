@@ -164,7 +164,7 @@
     margin: 10px 0;
 }
 
-.reward-tier h3 {
+.reward-tier h2 {
     margin: 0 10px;
     color: #ff0000;
     font-size: 24px;
@@ -193,7 +193,7 @@
         font-size: 16px;
     }
 
-    .reward-tier h3 {
+    .reward-tier h2 {
         font-size: 28px;
     }
 }

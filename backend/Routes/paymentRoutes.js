@@ -35,10 +35,8 @@ const formatPhoneNumber = (phoneNumber) => {
     return phoneNumber;
 };
 
-router.post('/api/mpesa/pay', authenticateToken, async (req, res) => {
-    const userId = req.user.userId;
-    const amount = 500;
-    const fixedPhoneNumber = '0799703637';  // Fixed phone number to receive payment
+router.post('/api/mpesa/pay', authenticateToken,async (req, res) => {
+    const { phoneNumber, amount, userId } = req.body; // Fixed phone number to receive payment
 
     try {
         const token = await getMpesaToken();
@@ -61,10 +59,8 @@ router.post('/api/mpesa/pay', authenticateToken, async (req, res) => {
         });
         console.log('User contact retrieved:', user.contact);
 
-        const formattedUserPhoneNumber = formatPhoneNumber(user.contact);
-        const formattedFixedPhoneNumber = formatPhoneNumber(fixedPhoneNumber);
-        console.log('Formatted user phone number:', formattedUserPhoneNumber);
-        console.log('Formatted fixed phone number:', formattedFixedPhoneNumber);
+        const formattedPhoneNumber = formatPhoneNumber(phoneNumber);
+        console.log('Formatted fixed phone number:', formattedPhoneNumber);
 
         const response = await axios.post(
             mpesaStkPushUrl,
@@ -74,9 +70,9 @@ router.post('/api/mpesa/pay', authenticateToken, async (req, res) => {
                 Timestamp: timestamp,
                 TransactionType: 'CustomerPayBillOnline',
                 Amount: amount,
-                PartyA: formattedUserPhoneNumber,
+                PartyA: formattedPhoneNumber,
                 PartyB: process.env.MPESA_SHORTCODE,
-                PhoneNumber: formattedFixedPhoneNumber,
+                PhoneNumber: formattedPhoneNumber,
                 CallBackURL: process.env.MPESA_CALLBACK_URL,
                 AccountReference: 'Payment',
                 TransactionDesc: 'Payment description',
@@ -91,21 +87,25 @@ router.post('/api/mpesa/pay', authenticateToken, async (req, res) => {
 
         const status = response.data.ResponseCode === '0' ? 'Success' : 'Failed';
 
-        db.query(
-            'INSERT INTO payments (user_id, phone_number, amount, status) VALUES (?, ?, ?, ?)',
-            [userId, user.contact, amount, status],
-            (err) => {
-                if (err) {
-                    console.error('Error saving payment:', err);
-                    res.status(500).json({ success: false });
-                } else {
-                    res.json({ success: true });
+        if (response.data.ResponseCode === '0') {
+            db.query(
+                'INSERT INTO payments (user_id, phone_number, amount, status) VALUES (?, ?, ?, ?)',
+                [userId, phoneNumber, amount, status],
+                (err) => {
+                    if (err) {
+                        console.error('Error saving payment:', err);
+                        return res.status(500).json({ success: false });
+                    } else {
+                        return res.json({ success: true });
+                    }
                 }
-            }
-        );
+            );
+        } else {
+            return res.status(500).json({ success: false, message: 'Payment failed' });
+        }
     } catch (error) {
         console.error('Error processing payment:', error);
-        res.status(500).json({ success: false });
+        return res.status(500).json({ success: false });
     }
 });
 

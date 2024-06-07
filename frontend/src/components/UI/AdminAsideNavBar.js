@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
@@ -11,6 +12,7 @@ const AsideNavbar = () => {
         last_name: '',
         email: '',
         image: defaultImage,
+    
     });
 
     const navigate = useNavigate();
@@ -101,17 +103,11 @@ const AsideNavbar = () => {
                 <button className="logout-button" onClick={handleLogout}>Logout</button>
                 <nav>
                     <ul>
-                        <br/>
-                        <li><Link to="/dashboard">Dashboard</Link></li>
-                        {
-                        user.role === 'Admin' && <li><Link to="/adminDashboard">Admin Dashboard</Link></li>
-                        }
-
-
-                        <li><Link to="/share">Share</Link></li>
-                        <li><Link to={`/earn/${user.id}`}>Earn</Link></li>
-                        <li><Link to="/transaction">Get Paid</Link></li>
-                        <li><Link to="/contact">Contact-us</Link></li>
+                        <li><Link to="/admindashboard">Dashboard</Link></li>
+                        <li><Link to="/mail">Mails</Link></li>
+                        <li><Link to="/admin-earn">Earn</Link></li>
+                        <li><Link to="/admin-transaction">Get Paid</Link></li>
+                        <li><Link to="/admin-contact">Contact-us</Link></li>
                     </ul>
                 </nav>
             </aside>
